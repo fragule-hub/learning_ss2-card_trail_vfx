@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://e5kehkh8nn0q"]
+
+[ext_resource type="Script" uid="uid://wqecuv20v0co" path="res://procedural_trail/procedural_card_trail_vfx.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://5w0vsklrb32o" path="res://procedural_trail/procedural_card_trail.gd" id="2_trail_script"]
+[ext_resource type="Texture2D" uid="uid://be4mtbpvrgk4n" path="res://assets/big.png" id="3_big_texture"]
+[ext_resource type="Texture2D" uid="uid://d3olf6hfhyyhn" path="res://assets/small.png" id="4_small_texture"]
+
+[sub_resource type="Curve" id="Curve_wide"]
+_data = [Vector2(0, 0.111037), 0.0, 0.0, 0, 0, Vector2(0.839578, 0.663793), -2.61019, -2.61019, 0, 0, Vector2(0.922468, 0.94341), 0.0, 0.0, 0, 0, Vector2(1, 0.685611), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="Gradient" id="Gradient_shadow"]
+offsets = PackedFloat32Array(0, 0.301795, 0.791268, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.0980392, 0.0745098, 0.109804, 0.117647, 0.392157, 0.188235, 0.0470588, 0.188235, 0.54902, 0.196078, 0.0431373, 0)
+
+[sub_resource type="Gradient" id="Gradient_outer"]
+offsets = PackedFloat32Array(0, 0.184178, 0.711492, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.886275, 0.356863, 0.113725, 0.235294, 1, 0.627451, 0.188235, 0.823529, 1, 0.631373, 0.243137, 0)
+
+[sub_resource type="Curve" id="Curve_core"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.801075, 0.571397), -3.15833, -3.15833, 0, 0, Vector2(0.900922, 0.367031), 0.0, 0.0, 0, 0, Vector2(0.938291, 0.930834), 0.0, 0.0, 0, 0, Vector2(1, 0.742201), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="Gradient" id="Gradient_inner"]
+offsets = PackedFloat32Array(0, 0.245734, 0.662512, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 0.894118, 0.658824, 0.290196, 1, 0.992157, 0.901961, 0.960784, 1, 0.811765, 0.301961, 0)
+
+[sub_resource type="Gradient" id="Gradient_big_sparks"]
+offsets = PackedFloat32Array(0, 0.554377, 0.806366, 1)
+colors = PackedColorArray(1, 0.341176, 0.207843, 1, 0.980392, 0.45098, 0.117647, 0.447059, 0.760784, 0.141176, 0.027451, 0.482353, 0.639216, 0, 0, 0)
+
+[sub_resource type="Gradient" id="Gradient_small_sparks"]
+colors = PackedColorArray(1, 0.976471, 0.862745, 1, 0.992157, 0.847059, 0.243137, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_body"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.933333, 0.815686, 0.38)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_core"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="ProceduralCardTrailVfx" type="Node2D" unique_id=1841023753]
+show_behind_parent = true
+script = ExtResource("1_script")
+
+[node name="Trails" type="Node2D" parent="." unique_id=1401160318]
+
+[node name="ShadowTrail" type="Line2D" parent="Trails" unique_id=2064786162]
+modulate = Color(1, 1, 1, 0.8)
+width = 92.0
+width_curve = SubResource("Curve_wide")
+default_color = Color(0.227451, 0.121569, 0.0627451, 0.4)
+gradient = SubResource("Gradient_shadow")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+script = ExtResource("2_trail_script")
+
+[node name="OuterTrail" type="Line2D" parent="Trails" unique_id=388625006]
+width = 68.0
+width_curve = SubResource("Curve_wide")
+default_color = Color(1, 0.588235, 0.180392, 0.72)
+gradient = SubResource("Gradient_outer")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+script = ExtResource("2_trail_script")
+
+[node name="InnerTrail" type="Line2D" parent="Trails" unique_id=1130732051]
+width = 32.0
+width_curve = SubResource("Curve_core")
+default_color = Color(1, 0.941176, 0.823529, 0.92)
+gradient = SubResource("Gradient_inner")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+antialiased = true
+script = ExtResource("2_trail_script")
+
+[node name="Particles" type="Node2D" parent="." unique_id=458619389]
+
+[node name="BigSparks" type="CPUParticles2D" parent="Particles" unique_id=1444973752]
+amount = 52
+texture = ExtResource("3_big_texture")
+lifetime = 1.2
+randomness = 0.45
+lifetime_randomness = 0.9
+fract_delta = false
+emission_shape = 3
+emission_rect_extents = Vector2(22, 22)
+direction = Vector2(2, -5)
+gravity = Vector2(0, 0)
+initial_velocity_min = 18.0
+initial_velocity_max = 42.0
+angular_velocity_min = -40.0
+angular_velocity_max = 40.0
+damping_min = 1.0
+damping_max = 5.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.2
+scale_amount_max = 0.6
+color_ramp = SubResource("Gradient_big_sparks")
+
+[node name="SmallSparks" type="CPUParticles2D" parent="Particles" unique_id=295839681]
+amount = 72
+texture = ExtResource("4_small_texture")
+lifetime = 0.34
+explosiveness = 0.35
+randomness = 1.0
+lifetime_randomness = 1.0
+fract_delta = false
+emission_shape = 3
+emission_rect_extents = Vector2(20, 20)
+particle_flag_align_y = true
+direction = Vector2(0, -4)
+gravity = Vector2(0, 1640)
+initial_velocity_max = 420.0
+angular_velocity_min = -60.0
+angular_velocity_max = 60.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.1
+scale_amount_max = 0.2
+color_ramp = SubResource("Gradient_small_sparks")
+
+[node name="GlowShapes" type="Node2D" parent="." unique_id=400108318]
+
+[node name="OuterGlow" type="ColorRect" parent="GlowShapes" unique_id=1690835399]
+offset_left = -22.0
+offset_top = -34.0
+offset_right = 22.0
+offset_bottom = 34.0
+rotation = 0.785398
+pivot_offset = Vector2(22, 34)
+mouse_filter = 2
+color = Color(1, 0.407843, 0.168627, 0.18)
+
+[node name="BodyPanel" type="Panel" parent="GlowShapes" unique_id=620226256]
+modulate = Color(1, 0.772549, 0.415686, 0.65)
+offset_left = -15.0
+offset_top = -23.0
+offset_right = 15.0
+offset_bottom = 23.0
+rotation = 0.785398
+pivot_offset = Vector2(15, 23)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBox_body")
+
+[node name="CorePanel" type="Panel" parent="GlowShapes" unique_id=1681820013]
+modulate = Color(1, 0.972549, 0.878431, 0.92)
+offset_left = -10.0
+offset_top = -15.0
+offset_right = 10.0
+offset_bottom = 15.0
+rotation = 0.785398
+pivot_offset = Vector2(10, 15)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBox_core")

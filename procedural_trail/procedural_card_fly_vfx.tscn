@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://clwohubcdyiuf"]
+
+[ext_resource type="Script" uid="uid://dimy6uhc8lv71" path="res://procedural_trail/procedural_card_fly_vfx.gd" id="1_script"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_body"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.921569, 0.745098, 0.4)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_core"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[node name="ProceduralCardFlyVfx" type="Node2D" unique_id=1527824779]
+script = ExtResource("1_script")
+
+[node name="CardSoul" type="Node2D" parent="." unique_id=1656567387]
+
+[node name="OuterGlow" type="ColorRect" parent="CardSoul" unique_id=803978732]
+offset_left = -28.0
+offset_top = -42.0
+offset_right = 28.0
+offset_bottom = 42.0
+rotation = 0.785398
+pivot_offset = Vector2(28, 42)
+mouse_filter = 2
+color = Color(1, 0.470588, 0.180392, 0.34)
+
+[node name="BodyPanel" type="Panel" parent="CardSoul" unique_id=361397684]
+modulate = Color(1, 0.733333, 0.341176, 0.95)
+offset_left = -20.0
+offset_top = -30.0
+offset_right = 20.0
+offset_bottom = 30.0
+rotation = 0.785398
+pivot_offset = Vector2(20, 30)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBox_body")
+
+[node name="CorePanel" type="Panel" parent="CardSoul" unique_id=1472725733]
+modulate = Color(1, 0.972549, 0.858824, 1)
+offset_left = -13.0
+offset_top = -20.0
+offset_right = 13.0
+offset_bottom = 20.0
+rotation = 0.785398
+pivot_offset = Vector2(13, 20)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBox_core")
